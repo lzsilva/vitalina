@@ -1,0 +1,21 @@
+package recurso;
+
+import java.sql.*;
+
+public class FabricaDeConexao {
+
+	public static Connection getConnection() throws SQLException {
+		
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			return DriverManager.getConnection("jdbc:mysql://localhost/vitalina","root","12345");
+		}
+		catch (ClassNotFoundException e){
+			System.out.println("Aqui!");
+			throw new SQLException(e.getMessage());
+		}
+		
+	}
+	
+}
