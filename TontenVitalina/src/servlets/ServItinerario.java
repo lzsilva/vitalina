@@ -40,23 +40,31 @@ public class ServItinerario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String acao = request.getParameter("acao");
-		DAOItinerario daoItinerario = new DAOItinerario();
-		int idLinha = Integer.parseInt(request.getParameter("linha"));
-		int idLocalidade = Integer.parseInt(request.getParameter("localidade"));
-		int ordem = Integer.parseInt(request.getParameter("ordem"));
+		DAOItinerario daoItinerario = new DAOItinerario();		
 		
 		switch (acao){
 		case "cadastrar":
+			int idLinha = Integer.parseInt(request.getParameter("linha"));
+			int idLocalidade = Integer.parseInt(request.getParameter("localidade"));
+			int ordem = Integer.parseInt(request.getParameter("ordem"));
 			Itinerario itinerario = new Itinerario(idLinha, idLocalidade, ordem);
 			daoItinerario.salvar(itinerario);			
 			break;
 			
 		case "editar":
+			int idLinhaEd = Integer.parseInt(request.getParameter("linha"));
+			int idLocalidadeEd = Integer.parseInt(request.getParameter("localidade"));
+			int ordemEd = Integer.parseInt(request.getParameter("ordem"));
 			int idItinerario = (Integer.parseInt(request.getParameter("itinerario")));
-			Itinerario itinerario_id = new Itinerario(idItinerario, idLinha, idLocalidade, ordem);			
+			Itinerario itinerario_id = new Itinerario(idItinerario, idLinhaEd, idLocalidadeEd, ordemEd);			
 			daoItinerario.update(itinerario_id);			
 			break;
+			
+		case "deletar":
+			System.out.println("Pronto pra deletar.");
+			break;
 		}		
+		
 		
 		response.sendRedirect("ListarItinerarios.jsp");
 	}
