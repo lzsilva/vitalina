@@ -42,17 +42,23 @@ public class ServEmpresa extends HttpServlet {
 		
 		String acao = request.getParameter("acao");
 		DAOEmpresa daoEmpresa = new DAOEmpresa();	
-		String nome = request.getParameter("nome");
+		
 		
 		switch (acao){
 		
 			case "cadastrar":
-				Empresa empresa = new Empresa(nome);			
+				String nomeC = request.getParameter("nome");
+				Empresa empresa = new Empresa(nomeC);			
 				daoEmpresa.salvar(empresa);				
 				break;
 			case "editar":
-				Empresa empresa_id = new Empresa (Integer.parseInt(request.getParameter("id")),nome);
+				String nomeE = request.getParameter("nome");
+				Empresa empresa_id = new Empresa (Integer.parseInt(request.getParameter("id")),nomeE);
 				daoEmpresa.update(empresa_id);					
+				break;
+			case "deletar":	
+				System.out.println("deletou.");
+				daoEmpresa.deletar(Integer.parseInt(request.getParameter("id")));					
 				break;
 		}
 		

@@ -56,8 +56,7 @@ public class DAOLinha implements IDAO<Linha> {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 		
 		return null;
 	}
@@ -107,6 +106,28 @@ public class DAOLinha implements IDAO<Linha> {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public ArrayList<Linha> buscarPorEmpresa(int codigo) {
+		try {
+			con = FabricaDeConexao.getConnection();
+			String query = "SELECT * FROM linha WHERE fkIdEmpresa = ?";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, codigo);
+			result = ps.executeQuery();
+			ArrayList<Linha> retorno = new ArrayList<Linha>();
+			while (result.next()) {
+				retorno.add( new Linha( result.getInt(1), result.getString(2), result.getInt(3) ) );
+			}			
+			ps.close();
+			con.close();
+			result.close();			
+			return retorno;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return null;
 	}
 	
 	public ArrayList<Linha> buscar(String nome, Integer idEmpresa) {

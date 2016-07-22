@@ -31,15 +31,6 @@
 		Localidade localidade = daoLocalidade.buscar(Integer.parseInt(request.getParameter("id")));
 	%>
 
-	<script>
-		function deletar() {
-			if (confirm('Deseja deletar a Linha?')) {
-	<%//daoEmpresa.deletar(empresa.getIdEmpresa());%>
-		window.location = "ListarLinhas.jsp"
-			}
-		}
-	</script>
-
 	<div class="container">
 		<div class="hero-unit">
 			<div class="navbar">
@@ -100,7 +91,7 @@
 				</form>
 			</div>
 			<input type="submit" class="btn btn-danger" value="Deletar"
-				onclick="deletar();">
+				onclick="window.location='DeletarLocalidade.jsp?id=<%=localidade.getIdLocalidade()%>'">
 		</div>
 	</div>
 

@@ -43,20 +43,27 @@ public class ServLinha extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String acao = request.getParameter("acao");
-		DAOLinha daoLinha = new DAOLinha();
+		DAOLinha daoLinha = new DAOLinha();		
 		
-		int idEmpresa = Integer.parseInt(request.getParameter("empresa"));
-		String nome = request.getParameter("nome");
 		
 		switch(acao){
-			case "cadastrar":								
-				Linha linha = new Linha(nome, idEmpresa);
+			case "cadastrar":
+				int idEmpresaC = Integer.parseInt(request.getParameter("empresa"));
+				String nomeC = request.getParameter("nome");
+				Linha linha = new Linha(nomeC, idEmpresaC);
 				daoLinha.salvar(linha);				
 				break;
 				
-			case "editar":				
+			case "editar":
+				int idEmpresaE = Integer.parseInt(request.getParameter("empresa"));
+				String nomeE = request.getParameter("nome");
 				int idLinha = (Integer.parseInt(request.getParameter("id")));				
-				daoLinha.update(idLinha, idEmpresa, nome);				
+				daoLinha.update(idLinha, idEmpresaE, nomeE);				
+				break;
+				
+			case "deletar":				
+				int idLinhadel = (Integer.parseInt(request.getParameter("id")));				
+				daoLinha.deletar(idLinhadel);				
 				break;
 		}
 		

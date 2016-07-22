@@ -95,13 +95,12 @@ public class DAOEmpresa implements IDAO<Empresa> {
 				Empresa empresa = new Empresa(result.getInt(1),result.getString(2));
 				
 				DAOLinha daoLinha = new DAOLinha();
-				ArrayList<Linha> linhas = daoLinha.buscar();
-				
-				for(Linha x : linhas) {
-					if (empresa.getIdEmpresa() == x.getIdEmpresa()) {
-						empresa.addLinha(x);
-					}
-				}
+				ArrayList<Linha> linhas = daoLinha.buscarPorEmpresa(empresa.getIdEmpresa());
+				empresa.getLinhas().addAll(linhas);
+				//for(Linha x : linhas) {					
+						//empresa.addLinha(x);
+					
+				//}
 				
 				ps.close();
 				con.close();

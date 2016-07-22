@@ -43,6 +43,7 @@ public class ServItinerario extends HttpServlet {
 		DAOItinerario daoItinerario = new DAOItinerario();		
 		
 		switch (acao){
+		
 		case "cadastrar":
 			int idLinha = Integer.parseInt(request.getParameter("linha"));
 			int idLocalidade = Integer.parseInt(request.getParameter("localidade"));
@@ -61,7 +62,8 @@ public class ServItinerario extends HttpServlet {
 			break;
 			
 		case "deletar":
-			System.out.println("Pronto pra deletar.");
+			int idItinerarioDel = (Integer.parseInt(request.getParameter("itinerario")));
+			daoItinerario.deletar(idItinerarioDel);			
 			break;
 		}		
 		

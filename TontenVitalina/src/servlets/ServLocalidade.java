@@ -41,18 +41,26 @@ public class ServLocalidade extends HttpServlet {
 		String acao =  request.getParameter("acao");
 		DAOLocalidade daoLocalidade = new DAOLocalidade();
 		String nome = request.getParameter("nome");
-		char tipo = request.getParameter("tipo").charAt(0);		
+		
 		
 		
 		switch(acao){
 		case "cadastrar":
-			Localidade local = new Localidade(nome, tipo);			
+			char tipoC = request.getParameter("tipo").charAt(0);	
+			Localidade local = new Localidade(nome, tipoC);
+			daoLocalidade.salvar(local);
 			break;
 		case "editar":
-			Localidade local_id = new Localidade(Integer.valueOf(request.getParameter("id")),nome, tipo);
+			char tipoE = request.getParameter("tipo").charAt(0);	
+			Localidade local_id = new Localidade(Integer.valueOf(request.getParameter("id")),nome, tipoE);
 			daoLocalidade.update(local_id);			
 			break;
-		}
+		
+		case "deletar":		
+			int codigo = Integer.valueOf(request.getParameter("id"));
+			daoLocalidade.deletar(codigo);			
+			break;
+		}	
 		
 		response.sendRedirect("ListarLocalidades.jsp");		
 	}

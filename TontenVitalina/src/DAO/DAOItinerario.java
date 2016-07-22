@@ -64,6 +64,62 @@ public class DAOItinerario implements IDAO<Itinerario> {
 		return null;
 	}
 	
+	
+	public ArrayList<Itinerario> buscarPorLocalidade(int idLocalidade) {
+		// TODO Auto-generated method stub
+		try {
+			con = FabricaDeConexao.getConnection();
+			String query = "SELECT * FROM itinerario WHERE fkIdLocalidade = ?;";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, idLocalidade);
+			result = ps.executeQuery();
+			
+			ArrayList<Itinerario> retorno = new ArrayList<Itinerario>();
+			while (result.next()) {
+				retorno.add( new Itinerario( result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4)) );
+			}
+			
+			ps.close();
+			con.close();
+			result.close();
+			
+			return retorno;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null;
+	}
+	
+	public ArrayList<Itinerario> buscarPorLinha(int idLinha) {
+		// TODO Auto-generated method stub
+		try {
+			con = FabricaDeConexao.getConnection();
+			String query = "SELECT * FROM itinerario WHERE fkIdLinha = ?;";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, idLinha);
+			result = ps.executeQuery();
+			
+			ArrayList<Itinerario> retorno = new ArrayList<Itinerario>();
+			while (result.next()) {
+				retorno.add( new Itinerario( result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4)) );
+			}
+			
+			ps.close();
+			con.close();
+			result.close();
+			
+			return retorno;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	
 	@Override
 	public Itinerario buscar(int codigo) {
 		// TODO Auto-generated method stub
@@ -136,7 +192,7 @@ public class DAOItinerario implements IDAO<Itinerario> {
 		return null;
 	}
 	
-	//Incluí este método:
+	//Incluï¿½ este mï¿½todo:
 	public ArrayList<Itinerario> buscar(int partida, int chegada) {
 		// TODO Auto-generated method stub
 		try {
@@ -195,7 +251,16 @@ public class DAOItinerario implements IDAO<Itinerario> {
 	
 	@Override
 	public void deletar(int codigo) {
-		
+		try {
+			con = FabricaDeConexao.getConnection();
+			String query = "DELETE FROM itinerario where idItinerario = ?";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, codigo);
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		
 	}
 	

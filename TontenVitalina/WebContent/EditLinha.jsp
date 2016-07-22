@@ -34,15 +34,7 @@
 		DAOEmpresa daoEmpresa = new DAOEmpresa();
 		Empresa empresa = daoEmpresa.buscar(linha.getIdEmpresa());
 	%>
-
-	<script>
-		function deletar() {
-			if (confirm('Deseja deletar a Linha?')) {
-	<%//daoEmpresa.deletar(empresa.getIdEmpresa());%>
-		window.location = "ListarLinhas.jsp"
-			}
-		}
-	</script>
+	
 
 	<div class="container">
 		<div class="hero-unit">
@@ -110,7 +102,7 @@
 				</form>
 			</div>
 			<input type="submit" class="btn btn-danger" value="Deletar"
-				onclick="deletar();">
+				onclick="window.location='DeletarLinha.jsp?id=<%=linha.getIdLinha()%>'">
 		</div>
 	</div>
 
